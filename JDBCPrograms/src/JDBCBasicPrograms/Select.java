@@ -1,21 +1,26 @@
+package JDBCBasicPrograms;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Insert {
+public class Select {
 	public static void main(String[] args)  {
 		Connection connection=null;
 		Statement statement =null;
+		ResultSet resultSet =null;
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql:///abc","root","Mohan");
 			if (connection!=null) {
 				statement = connection.createStatement();
 				if (statement!=null) {
-					int rowCount = statement.executeUpdate("insert into student (sid,sname,sage) values (3,'mohan',22)");
-				
-					if (rowCount>0) {
-						System.out.println("Row inserted Sucessfully "+rowCount);
+					resultSet = statement.executeQuery("select * from student");
+
+					if (resultSet!=null) {
+						while (resultSet.next()) {
+							System.out.println(resultSet.getString(2));
+						} 
 					}
 				}
 
@@ -24,6 +29,14 @@ public class Insert {
 			e.printStackTrace();
 		}
 		finally {
+			if (resultSet!=null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 			if (statement!=null) {
 				try {
 					statement.close();

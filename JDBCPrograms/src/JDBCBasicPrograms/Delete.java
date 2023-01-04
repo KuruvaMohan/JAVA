@@ -1,9 +1,10 @@
+package JDBCBasicPrograms;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Update {
+public class Delete {
 	public static void main(String[] args)  {
 		Connection connection=null;
 		Statement statement =null;
@@ -12,10 +13,10 @@ public class Update {
 			if (connection!=null) {
 				statement = connection.createStatement();
 				if (statement!=null) {
-					int rowCount = statement.executeUpdate("update student set sname= 'Satti' where sid=1");
+					int rowCount = statement.executeUpdate("Delete from student where sid=3");
 				
 					if (rowCount>0) {
-						System.out.println("Row Updated Sucessfully : "+rowCount);
+						System.out.println("Row deleted Sucessfully "+rowCount);
 					}
 				}
 
