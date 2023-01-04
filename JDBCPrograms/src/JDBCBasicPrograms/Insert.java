@@ -4,8 +4,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class Insert {
+	static Logger log = Logger.getLogger(Insert.class);
 	public static void main(String[] args)  {
+		LogClass.loadLog4j();
 		Connection connection=null;
 		Statement statement =null;
 		try {
@@ -16,7 +22,7 @@ public class Insert {
 					int rowCount = statement.executeUpdate("insert into student (sid,sname,sage) values (3,'mohan',22)");
 				
 					if (rowCount>0) {
-						System.out.println("Row inserted Sucessfully "+rowCount);
+						log.info("Row inserted Sucessfully "+rowCount);
 					}
 				}
 

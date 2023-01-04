@@ -6,8 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class ExecuteMothod {
+	static Logger log = Logger.getLogger(ExecuteMothod.class);
 	public static void main(String[] args) {
+		LogClass.loadLog4j();
 		Connection connection =null;
 		Statement statement =null;
 		Scanner scanner =null;
@@ -18,27 +24,28 @@ public class ExecuteMothod {
 				  statement = connection.createStatement();
 				  if (statement != null) {
 					   scanner = new Scanner(System.in);
-					   System.out.print("Enter the Query :");
+					   log.info("Enter the Query :");
 					String query=scanner.nextLine();
+					log.info("QUERY ENTERED BY USER IS  "+query);
 					boolean execute = statement.execute(query);
 					if (execute==true) {
-						System.out.println("EXECUTED SELECT QUERY");
+						log.info("EXECUTED SELECT QUERY");
 						 resultSet = statement.getResultSet();
 						if (resultSet != null) {
-							System.out.println("sname");
+							log.info("sname");
 							while (resultSet.next()) {
 								String name = resultSet.getString(2);
-								System.out.println(name);
+								log.info(name);
 							}
 						}
 					} else {
-						System.out.println("EXECUTED NON-SELECT QUERY");
+						log.info("EXECUTED NON-SELECT QUERY");
 						int rowCount = statement.getUpdateCount();
 						if (rowCount>0) {
-							System.out.println("Data Manupulated Sucessfully");
+							log.info("Data Manupulated Sucessfully");
 						} else {
 
-							System.out.println("Data is not Manupulated");
+							log.info("Data is not Manupulated");
 						}
 
 					}

@@ -4,8 +4,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class Update {
+	static Logger log = Logger.getLogger(Update.class);
 	public static void main(String[] args)  {
+		LogClass.loadLog4j();
 		Connection connection=null;
 		Statement statement =null;
 		try {
@@ -16,7 +22,7 @@ public class Update {
 					int rowCount = statement.executeUpdate("update student set sname= 'Satti' where sid=1");
 				
 					if (rowCount>0) {
-						System.out.println("Row Updated Sucessfully : "+rowCount);
+						log.info("Row Updated Sucessfully : "+rowCount);
 					}
 				}
 

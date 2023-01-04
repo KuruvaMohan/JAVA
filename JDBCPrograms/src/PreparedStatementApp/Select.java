@@ -7,9 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Select {
-	public static void main(String[] args) {
+import org.apache.log4j.Logger;
 
+import Utils.LogClass;
+
+public class Select {
+	static Logger log = Logger.getLogger(Select.class);
+	public static void main(String[] args) {
+		LogClass.loadLog4j();
 		String URL = "jdbc:mysql:///abc";
 		String user="root";
 		String password="Mohan";
@@ -26,14 +31,17 @@ public class Select {
 				pstmt = connection.prepareStatement(sqlSelecrQuery);
 
 				scanner = new Scanner(System.in);
-				System.out.print("ENTER THE SID :  ");
+				log.info("ENTER THE SID :  ");
 				int sid = scanner.nextInt();
+				
+				log.info("SID ENTERED BY USER IS  "+sid);
+				
 				if (pstmt != null) {
 					pstmt.setInt(1,sid);
 					resultSet = pstmt.executeQuery();
-					System.out.println("SID\tSNAME");
+					log.info("SID\tSNAME");
 					while (resultSet.next()) {
-						System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2));
+						log.info(resultSet.getInt(1)+"\t"+resultSet.getString(2));
 					}
 				}
 			}

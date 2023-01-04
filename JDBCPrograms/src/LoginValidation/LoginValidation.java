@@ -6,8 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class LoginValidation {
+	static Logger log = Logger.getLogger(LoginValidation.class);
 	public static void main(String[] args) {
+		LogClass.loadLog4j();
 		Connection connection=null;
 		Statement statement =null;
 		Scanner scanner=null;
@@ -18,20 +24,23 @@ public class LoginValidation {
 				statement = connection.createStatement();
 				if (statement!=null) {
 					 scanner = new Scanner(System.in);
-					 System.out.print("ENTER THE USERNAME :: ");
+					 log.info("ENTER THE USERNAME :: ");
 					 
 					String username=scanner.next();
-					System.out.print("ENTER THE PASSWORD :: ");
+					log.info("ENTER THE PASSWORD :: ");
 					String password=scanner.next();
-					System.out.println("select count(*) from logininfo where username='"+username+"' and password='"+password+"'");
+					log.info("USERNAME ENTERED BY USER IS  "+username);
+					log.info("PASSWORD ENTERED BY USER IS  "+password);
+					
+					log.info("select count(*) from logininfo where username='"+username+"' and password='"+password+"'");
 					resultSet = statement.executeQuery("select count(*) from logininfo where username='"+username+"' and password='"+password+"'");
 					if (resultSet!=null) {
 						while (resultSet.next()) {
 							int count = resultSet.getInt(1);
 							if (count==0) {
-								System.out.println("LOGIN IS INVALID.......");
+								log.info("LOGIN IS INVALID.......");
 							}else {
-							System.out.println("LOGIN IS VALID......");
+							log.info("LOGIN IS VALID......");
 							
 						}
 						} 

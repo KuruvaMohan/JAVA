@@ -4,8 +4,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class Delete {
+	static Logger log = Logger.getLogger(Delete.class);
 	public static void main(String[] args)  {
+		LogClass.loadLog4j();
 		Connection connection=null;
 		Statement statement =null;
 		try {
@@ -16,7 +22,7 @@ public class Delete {
 					int rowCount = statement.executeUpdate("Delete from student where sid=3");
 				
 					if (rowCount>0) {
-						System.out.println("Row deleted Sucessfully "+rowCount);
+						log.info("Row deleted Sucessfully "+rowCount);
 					}
 				}
 

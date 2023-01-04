@@ -7,9 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class ExecuteMethod {
-	public static void main(String[] args) {
+import org.apache.log4j.Logger;
 
+import JDBCBasicPrograms.ExecuteMothod;
+import Utils.LogClass;
+
+public class ExecuteMethod {
+	static Logger log = Logger.getLogger(ExecuteMothod.class);
+	public static void main(String[] args) {
+		LogClass.loadLog4j();
 		String URL = "jdbc:mysql:///abc";
 		String user="root";
 		String password="Mohan";
@@ -22,26 +28,27 @@ public class ExecuteMethod {
 			connection = DriverManager.getConnection(URL, user, password);
 			if (connection != null) {
 				scanner = new Scanner(System.in);
-				System.out.print("ENTER THE SQL QUERY :  ");
+				log.info("ENTER THE SQL QUERY :  ");
 				String sqlQuery=scanner.nextLine();
+				log.info("QUERY ENTERED BY USER IS  "+sqlQuery);
 				pstmt = connection.prepareStatement(sqlQuery);
 				if (pstmt != null) {
 					boolean execute = pstmt.execute();
 					if (execute) {
 						resultSet = pstmt.getResultSet();
 						if (resultSet != null) {
-							System.out.println("SID\tSNAME\tSAGE");
+							log.info("SID\tSNAME\tSAGE");
 							while (resultSet.next()) {
-								System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3));
+								log.info(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3));
 							}
 						}
 					} else {
 						int rowCount = pstmt.getUpdateCount();
 						if (rowCount>0) {
-							System.out.println("Row Manupulated Sucessfully : "+rowCount);
+							log.info("Row Manupulated Sucessfully : "+rowCount);
 						}else {
 
-							System.out.println("Data is not Manupulated");
+							log.info("Data is not Manupulated");
 						}
 
 					}

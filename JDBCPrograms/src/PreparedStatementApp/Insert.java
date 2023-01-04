@@ -5,9 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class Insert {
+	static Logger log = Logger.getLogger(Insert.class);
 	public static void main(String[] args) {
-		
+		LogClass.loadLog4j();
 		String URL = "jdbc:mysql:///abc";
 		String user="root";
 		String password="Mohan";
@@ -23,12 +28,15 @@ public class Insert {
 				pstmt = connection.prepareStatement(sqlInsertQuery);
 
 				scanner = new Scanner(System.in);
-				System.out.print("ENTER THE SID :  ");
+				log.info("ENTER THE SID :  ");
 				int sid = scanner.nextInt();
-				System.out.print("ENTER THE SNAME :  ");
+				log.info("ENTER THE SNAME :  ");
 				String sname = scanner.next();
-				System.out.print("ENTER THE SAGE :  ");
+				log.info("ENTER THE SAGE :  ");
 				int sage = scanner.nextInt();
+				log.info("SID ENTERED BY USER IS  "+sid);
+				log.info("SNAME ENTERED BY USER IS  "+sname);
+				log.info("SID ENTERED BY USER IS  "+sage);
 
 				if (pstmt != null) {
 					pstmt.setInt(1,sid);
@@ -36,7 +44,7 @@ public class Insert {
 					pstmt.setInt(3, sage);
 					int rowCount = pstmt.executeUpdate();
 					if (rowCount>0) {
-						System.out.println("Row Inserted Sucessfully : "+rowCount);
+						log.info("Row Inserted Sucessfully : "+rowCount);
 					}
 
 				}

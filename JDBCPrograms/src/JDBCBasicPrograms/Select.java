@@ -5,8 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
+import Utils.LogClass;
+
 public class Select {
+	static Logger log = Logger.getLogger(Select.class);
 	public static void main(String[] args)  {
+		LogClass.loadLog4j();
 		Connection connection=null;
 		Statement statement =null;
 		ResultSet resultSet =null;
@@ -19,7 +25,7 @@ public class Select {
 
 					if (resultSet!=null) {
 						while (resultSet.next()) {
-							System.out.println(resultSet.getString(2));
+							log.info(resultSet.getString(2));
 						} 
 					}
 				}
