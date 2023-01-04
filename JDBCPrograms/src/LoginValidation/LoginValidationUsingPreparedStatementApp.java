@@ -1,6 +1,7 @@
 package LoginValidation;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,39 +11,41 @@ import org.apache.log4j.Logger;
 
 import Utils.LogClass;
 
-public class LoginValidation {
-	static Logger log = Logger.getLogger(LoginValidation.class);
+public class LoginValidationUsingPreparedStatementApp {
+	public static final String SQLSELECTQUERY="select count(*) from logininfo where username=? and password=?";
+	static Logger log = Logger.getLogger(LoginValidationUsingPreparedStatementApp.class);
 	public static void main(String[] args) {
 		LogClass.loadLog4j();
 		Connection connection=null;
-		Statement statement =null;
+		PreparedStatement pstmt =null;
 		Scanner scanner=null;
 		ResultSet resultSet =null;
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql:///abc","root","Mohan");
 			if (connection!=null) {
-				statement = connection.createStatement();
-				if (statement!=null) {
-					 scanner = new Scanner(System.in);
-					 log.info("ENTER THE USERNAME :: ");
-					 
+				pstmt = connection.prepareStatement(SQLSELECTQUERY);
+				if (pstmt!=null) {
+					scanner = new Scanner(System.in);
+					log.info("ENTER THE USERNAME :: ");
+
 					String username=scanner.next();
 					log.info("ENTER THE PASSWORD :: ");
 					String password=scanner.next();
 					log.info("USERNAME ENTERED BY USER IS  "+username);
 					log.info("PASSWORD ENTERED BY USER IS  "+password);
-					
-					log.info("select count(*) from logininfo where username='"+username+"' and password='"+password+"'");
-					resultSet = statement.executeQuery("select count(*) from logininfo where username='"+username+"' and password='"+password+"'");
+					pstmt.setString(1, username);
+					pstmt.setString(2, password);
+
+					resultSet = pstmt.executeQuery();
 					if (resultSet!=null) {
 						while (resultSet.next()) {
 							int count = resultSet.getInt(1);
 							if (count==0) {
 								log.info("LOGIN IS INVALID.......");
 							}else {
-							log.info("LOGIN IS VALID......");
-							
-						}
+								log.info("LOGIN IS VALID......");
+
+							}
 						} 
 					}
 				}
@@ -62,9 +65,9 @@ public class LoginValidation {
 				}
 
 			}
-			if (statement!=null) {
+			if (pstmt!=null) {
 				try {
-					statement.close();
+					pstmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

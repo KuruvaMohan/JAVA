@@ -11,6 +11,7 @@ import Utils.LogClass;
 
 public class Delete {
 	static Logger log = Logger.getLogger(Delete.class);
+	public static final String SQLDELETEQUERY="delete from student where sid=?";
 	public static void main(String[] args) {
 		LogClass.loadLog4j();
 		
@@ -25,11 +26,10 @@ public class Delete {
 			connection = DriverManager.getConnection(URL, user, password);
 			if (connection != null) {
 
-				String sqlInsertQuery="delete from student where sid=?";
-				pstmt = connection.prepareStatement(sqlInsertQuery);
+				pstmt = connection.prepareStatement(SQLDELETEQUERY);
 
 				scanner = new Scanner(System.in);
-				log.info("ENTER THE SID :  ");
+				log.info("ENTER THE STUDENT ID WHICH NEEDS TO BE DELETED :  ");
 				int sid = scanner.nextInt();
 				log.info("SID ENTERED BY USER IS  "+sid);
 				

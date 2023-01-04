@@ -1,11 +1,5 @@
-
-01-04-2023 11:29:36  INFO [main] Delete:32 - ENTER THE SID :  
-01-04-2023 11:29:40  INFO [main] Delete:34 - ENTERED THE SID IS  4
-01-04-2023 11:30:38  INFO [main] Delete:32 - ENTER THE SID :  
-01-04-2023 11:30:41  INFO [main] Delete:34 - SID ENTERED BY USER IS  4
-01-04-2023 11:38:04  INFO [main] Insert:31 - ENTER THE SID :  
-01-04-2023 11:39:05  INFO [main] Insert:31 - ENTER THE SID :  
-01-04-2023 11:39:29  INFO [main] Insert:31 - ENTER THE SID :  
-01-04-2023 11:39:34  INFO [main] Insert:33 - ENTER THE SNAME :  
-01-04-2023 11:39:39  INFO [main] Insert:35 - ENTER THE SAGE :  
-01-04-2023 11:39:46  INFO [main] Insert:44 - Row Inserted Sucessfully : 1
+01-04-2023 14:00:32  INFO [main] LoginValidationUsingPreparedStatementApp:29 - ENTER THE USERNAME :: 
+01-04-2023 14:00:39  INFO [main] LoginValidationUsingPreparedStatementApp:32 - ENTER THE PASSWORD :: 
+01-04-2023 14:00:42  INFO [main] LoginValidationUsingPreparedStatementApp:34 - USERNAME ENTERED BY USER IS  kuruva
+01-04-2023 14:00:42  INFO [main] LoginValidationUsingPreparedStatementApp:35 - PASSWORD ENTERED BY USER IS  mohan
+01-04-2023 14:00:42  INFO [main] LoginValidationUsingPreparedStatementApp:46 - LOGIN IS VALID......
